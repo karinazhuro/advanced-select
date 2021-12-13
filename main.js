@@ -9,7 +9,6 @@ const header = document.createElement('header');
 const tenders = document.createElement('p');
 const textarea = document.createElement('input');
 const wrapCheckbox = document.createElement('div');
-const footer = document.createElement('footer');
 
 function loadTextarea() {
 	body.prepend(header);
@@ -48,11 +47,7 @@ function showSelector() {
 		main.append(select);
 		select.classList.remove('visually-hidden');
 		select.size = '7';
-
-		main.after(footer);
-		footer.style.display = 'flex';
-		footer.classList.add('footer');
-
+		
 		selectOptionByCheckbox();
 	}
 }
