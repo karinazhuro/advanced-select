@@ -1,0 +1,162 @@
+body {
+  margin: 0;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 17px
+}
+
+.headerShow {
+  background: #fafafa;
+  box-shadow: 0 1px 0 #d9d9d9;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapBack {
+  display: flex;
+  align-items: center;
+  margin: 0 20px;
+}
+
+.tenders {
+  margin: 20px;
+
+  font-family: Source Sans Pro;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+
+  color: #272526;
+}
+
+.textarea {
+  max-width: 590px;
+  margin: 0 20px;
+  padding: 10px;
+
+  font-size: 16px;
+  line-height: 20px;
+
+  background: #ffffff;
+  color: #272526;
+  opacity: 0.6;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+}
+
+.textChecked {
+  border-left: 2px #035b77 solid;
+  opacity: 1;
+}
+
+main {
+  margin: 0 0 0 20px;
+
+  display: flex;
+  height: 80.9vh;
+}
+
+.wrapCheckbox {
+  display: flex;
+  flex-direction: column;
+  height: 22vh;
+}
+
+.inputCheckbox {
+  margin: 16px 16px 0 0;
+}
+
+.inputCheckbox:checked {
+  background-color: #035b77;
+}
+
+.inputCheckbox:focus-visible {
+  outline-offset: unset;
+}
+
+select {
+  width: 597px;
+  height: 22vh;
+  margin: 1px 0 1px 0;
+
+  border: none;
+  overflow: visible;
+}
+
+option {
+  padding: 6px 0 6px 0;
+
+  font-family: Source Sans Pro;
+  font-size: 14px;
+  color: #272526;
+}
+
+option:checked {
+  background: linear-gradient(0deg, rgba(3, 91, 119, 0.05), rgba(3, 91, 119, 0.05)), #ffffff;
+}
+
+option[data-level="2"] {
+  margin-left: 5px;
+  padding: 6px 0 6px 10px;
+
+  border-left: 1px #d9d9d9 dashed;
+}
+
+option[data-level="3"] {
+  margin-left: 20px;
+  padding: 6px 0 6px 10px;
+
+  border-left: 1px #d9d9d9 dashed;
+}
+
+footer {
+  padding: 10px 20px;
+
+  display: flex;
+  justify-content: space-between;
+
+  background: #fafafa;
+  box-shadow: 0 -1px 0 #d9d9d9;
+}
+
+.actBtn {
+  font-family: Source Sans Pro;
+  font-size: 14px;
+  line-height: 18px;
+
+  border: none;
+  cursor: pointer;
+}
+
+#apply {
+  padding: 11px 20px;
+
+  font-weight: bold;
+  text-transform: uppercase;
+
+  background: #035b77;
+  border-radius: 4px;
+  color: #ffffff;
+}
+
+#clear {
+  font-weight: 600;
+
+  background: none;
+  color: #000000;
+  opacity: 0.6;
+}
+
+.visually-hidden {
+  display: none;
+}
+
+.ed {
+  display: none;
+}
