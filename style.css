@@ -98,7 +98,8 @@ option {
 }
 
 option:checked {
-  background: linear-gradient(0deg, rgba(3, 91, 119, 0.05), rgba(3, 91, 119, 0.05)), #ffffff;
+  background: linear-gradient(
+      0deg, rgba(3, 91, 119, 0.05), rgba(3, 91, 119, 0.05)), #ffffff;
 }
 
 option[data-level="2"] {

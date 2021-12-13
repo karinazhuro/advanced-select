@@ -3,69 +3,79 @@
 const body = document.querySelector('body');
 const select = document.querySelector('.visually-hidden');
 const option = document.querySelectorAll('option');
-let collectionInputCheckbox = null;
 
 const header = document.createElement('header');
+const back = document.createElement('span');
 const tenders = document.createElement('p');
 const textarea = document.createElement('input');
 const wrapCheckbox = document.createElement('div');
+const wrapBack = document.createElement('div');
+const main = document.createElement('main');
+const footer = document.createElement('footer');
+const apply = document.createElement('button');
+const clear = document.createElement('button');
 
-function loadTextarea() {
+function load() {
 	body.prepend(header);
+	header.append(wrapBack);
 
-	header.append(tenders);
-	tenders.classList.add('tenders');
+	wrapBack.append(back);
+	back.classList.add('visually-hidden');
+
+	wrapBack.append(tenders);
 	tenders.innerText = 'Тендеры в роли Поставщика';
 
 	header.append(textarea);
-	textarea.classList.add('textarea');
+
+	header.after(main);
+	main.append(wrapCheckbox);
+	wrapCheckbox.classList.add('visually-hidden');
+
+	main.append(select);
+	select.classList.add('visually-hidden');
+
+	main.after(footer);
+	footer.classList.add('visually-hidden');
+
+	footer.append(apply);
+	footer.append(clear);
 }
 
 function showSelector() {
-	const wrapBack = document.createElement('div');
-	const main = document.createElement('main');
-
 	if (select.classList.contains('visually-hidden')) {
-		header.classList.add('headerShow');
-
-		header.append(wrapBack);
-		wrapBack.classList.add('wrapBack');
-		
-		wrapBack.append(tenders);
-		tenders.innerText = 'Реализуемые товары';
-
-		header.append(textarea);
-
-		header.after(main);
-		main.classList.add('main');
-
-		main.append(wrapCheckbox);
-		wrapCheckbox.classList.add('wrapCheckbox');
-
-		createCheckboxes();
-
-		main.append(select);
+		back.classList.remove('visually-hidden');
+		wrapCheckbox.classList.remove('visually-hidden');
 		select.classList.remove('visually-hidden');
-		select.size = '7';
-		
-		selectOptionByCheckbox();
+		footer.classList.remove('visually-hidden');
+		tenders.innerText = 'Реализуемые товары';
 	}
 }
 
 function createCheckboxes() {
-	if (collectionInputCheckbox === null) {
-		option.forEach(item => {
-			const inputCheckbox = document.createElement('input');
+	option.forEach(item => {
+		const inputCheckbox = document.createElement('input');
 
-			inputCheckbox.classList.add('inputCheckbox');
-			inputCheckbox.id = `${item.value}`;
-			inputCheckbox.type = 'checkbox';
+		inputCheckbox.classList.add('inputCheckbox');
+		inputCheckbox.id = `${item.value}`;
+		inputCheckbox.type = 'checkbox';
 
-			wrapCheckbox.append(inputCheckbox);
-		});
-	}
-	
-	collectionInputCheckbox = document.querySelectorAll('.inputCheckbox');
+		wrapCheckbox.append(inputCheckbox);
+	});
+}
+
+function hideSelector() {
+	header.classList.remove('headerShow');
+	back.classList.add('visually-hidden');
+	tenders.innerText = 'Тендеры в роли Заказчика';
+	wrapCheckbox.classList.add('visually-hidden');
+	select.classList.add('visually-hidden');
+	footer.classList.add('visually-hidden');
+}
+
+function selectOptionByCheckbox() {
+	document.querySelectorAll('.inputCheckbox').forEach(checkbox => {
+		checkbox.addEventListener('click', () => onCheckboxClick(checkbox));
+	});
 }
 
 function onCheckboxClick(checkbox) {
@@ -86,12 +96,6 @@ function onCheckboxClick(checkbox) {
 	});
 }
 
-function selectOptionByCheckbox() {
-	collectionInputCheckbox.forEach(checkbox => {
-		checkbox.addEventListener('click', () => onCheckboxClick(checkbox));
-	});
-}
-
 function getDeepSelectors(upLevel) {
 	const selectors = [];
 
@@ -109,6 +113,8 @@ function setDeepSelectors(selectors) {
 
 		document.getElementById(item.value).checked = true;
 	});
+
+	applySelectedPoint();
 }
 
 function removeDeepSelectors(selectors) {
@@ -118,6 +124,7 @@ function removeDeepSelectors(selectors) {
 
 		document.getElementById(item.value).checked = false;
 	});
+
 }
 
 function rollUpOptions(items) {
@@ -136,7 +143,57 @@ function rollUpOptions(items) {
 	}
 }
 
-document.addEventListener("DOMContentLoaded", loadTextarea);
+function applySelectedPoint() {
+	document.getElementById('apply')
+		.addEventListener('click', hideSelector);
+}
+
+function clearSelectedPoint(items) {
+	document.getElementById('clear')
+		.addEventListener('click', () => {
+			textarea.value = '';
+
+			[...items].forEach(item => {
+				item.classList.remove('checked');
+				item.selected = false;
+
+				document.getElementById(item.value).checked = false;
+			})
+		});
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+	load();
+	createCheckboxes();
+	selectOptionByCheckbox();
+	
+	header.classList.add('headerShow');
+	wrapBack.classList.add('wrapBack');
+	
+	back.classList.add('material-icons');
+	back.innerText = 'arrow_back';
+	
+	tenders.classList.add('tenders');
+	textarea.classList.add('textarea');
+	main.classList.add('main');
+	wrapCheckbox.classList.add('wrapCheckbox');
+	select.size = '7';
+	
+	footer.classList.add('footer');
+	
+	apply.classList.add('actBtn');
+	apply.innerText = 'Применить';
+	apply.id = 'apply';
+	
+	clear.classList.add('actBtn');
+	clear.innerText = 'Очистить';
+	clear.id = 'clear';
+
+	clearSelectedPoint(document.getElementsByClassName('checked'));
+});
+
+back.addEventListener('click', hideSelector);
+
 textarea.addEventListener('click', () => {
 	showSelector();
 });
